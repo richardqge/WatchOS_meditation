@@ -6,23 +6,32 @@
 //
 
 import Observation
-
-struct BreathingStep {
-    let phase: BreathPhase
-    let duration: Int
-}
+import Foundation
 
 @MainActor
 @Observable
 class MeditationTimerViewModel {
+    
+    // inject for testing
+    private let durationStore: DurationStoring
+    
+    private let selectedMinutesKey = "selectedMinutes"
     private let haptics: HapticsProviding
     
     init() {
         self.haptics = Haptics()
+        self.durationStore = DurationStore()
+        loadSavedDuration()
+
     }
 
-    init(haptics: HapticsProviding) {
+    init(
+        haptics: HapticsProviding,
+        durationStore: DurationStoring = EmptyDurationStore()
+    ) {
         self.haptics = haptics
+        self.durationStore = durationStore
+        loadSavedDuration()
     }
     
     
@@ -38,6 +47,7 @@ class MeditationTimerViewModel {
     private(set) var isLoadingRecommendation = false
 
     let durations = [1, 3, 5, 10]
+
     
     // cycle as data
     private let breathingPattern: [BreathingStep] = [
@@ -80,6 +90,8 @@ class MeditationTimerViewModel {
         
         selectedMinutes = minutes
         secondsRemaining = minutes * 60
+        durationStore.saveSelectedMinutes(minutes)
+
     }
 
     func tick() {
@@ -126,4 +138,16 @@ class MeditationTimerViewModel {
             }
         }
     }
+    
+    private func loadSavedDuration() {
+        guard let savedMinutes = durationStore.loadSelectedMinutes(),
+              durations.contains(savedMinutes)
+        else {
+            return
+        }
+
+        selectedMinutes = savedMinutes
+        secondsRemaining = savedMinutes * 60
+    }
+
 }

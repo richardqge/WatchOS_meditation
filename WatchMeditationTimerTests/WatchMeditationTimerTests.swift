@@ -63,5 +63,4 @@ struct WatchMeditationTimerTests {
         #expect(viewModel.secondsRemaining == 300)
     }
 
-
 }
