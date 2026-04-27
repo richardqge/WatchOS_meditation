@@ -2,43 +2,62 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
-    @State private var secondsRemaining = 5*60
+    @State private var selectedMinutes = 5
+    @State private var secondsRemaining = 5 * 60
     @State private var isRunning = false
-    
-    // create a timer that ticks every second
+
+    let durations = [1, 3, 5, 10]
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
+
     var body: some View {
-        VStack{
+        VStack {
+            Text("Minutes")
+
+            HStack {
+                ForEach(durations, id: \.self) { minutes in
+                    Button("\(minutes)") {
+                        selectedMinutes = minutes
+                        secondsRemaining = minutes * 60
+                    }
+                    .disabled(isRunning)
+                }
+            }
+
             Text(formatTime(secondsRemaining))
                 .font(.title)
-            
-            Button(isRunning ? "Pause": "Start"){
+
+            Button(isRunning ? "Pause" : "Start") {
                 isRunning.toggle()
             }
-            
-            Button("Reset"){
-                secondsRemaining = 5*60
-                isRunning = false
+
+            Button("Reset") {
+                resetTimer()
             }
         }
-        .onReceive(timer){ _ in // this runs every second
-            guard isRunning else {return}
-            
-            if secondsRemaining > 0{
+        .onReceive(timer) { _ in
+            guard isRunning else { return }
+
+            if secondsRemaining > 0 {
                 secondsRemaining -= 1
             } else {
                 isRunning = false
             }
         }
-        
     }
-    
-    func formatTime(_ seconds: Int) -> String{
+
+    func resetTimer() {
+        secondsRemaining = selectedMinutes * 60
+        isRunning = false
+    }
+
+    func formatTime(_ seconds: Int) -> String {
         let minutes = seconds / 60
         let seconds = seconds % 60
-        
+
         return String(format: "%02d:%02d", minutes, seconds)
     }
-    
+}
+
+#Preview {
+    ContentView()
 }
