@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import WatchKit
 
 struct ContentView: View {
     @State private var selectedMinutes = 5
@@ -28,10 +29,12 @@ struct ContentView: View {
 
             Button(isRunning ? "Pause" : "Start") {
                 isRunning.toggle()
+                WKInterfaceDevice.current().play(.click)
             }
 
             Button("Reset") {
                 resetTimer()
+                WKInterfaceDevice.current().play(.click)
             }
         }
         .onReceive(timer) { _ in
@@ -41,6 +44,7 @@ struct ContentView: View {
                 secondsRemaining -= 1
             } else {
                 isRunning = false
+                WKInterfaceDevice.current().play(.success)
             }
         }
     }
