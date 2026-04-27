@@ -1,64 +1,39 @@
 import SwiftUI
 import Combine
-import WatchKit
 
 struct ContentView: View {
-    @State private var selectedMinutes = 5
-    @State private var secondsRemaining = 5 * 60
-    @State private var isRunning = false
+    @State private var viewModel = MeditationTimerViewModel()
 
-    let durations = [1, 3, 5, 10]
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        VStack {
-            Text("Minutes")
-
-            HStack {
-                ForEach(durations, id: \.self) { minutes in
-                    Button("\(minutes)") {
-                        selectedMinutes = minutes
-                        secondsRemaining = minutes * 60
-                    }
-                    .disabled(isRunning)
-                }
-            }
-
-            Text(formatTime(secondsRemaining))
-                .font(.title)
-
-            Button(isRunning ? "Pause" : "Start") {
-                isRunning.toggle()
-                WKInterfaceDevice.current().play(.click)
-            }
-
-            Button("Reset") {
-                resetTimer()
-                WKInterfaceDevice.current().play(.click)
-            }
+        if viewModel.hasStarted {
+            timerView
+        } else {
+            setupView
         }
+    }
+
+    var setupView: some View {
+        SetupView(
+            durations: viewModel.durations,
+            selectedMinutes: viewModel.selectedMinutes,
+            onSelectMinutes: viewModel.selectMinutes,
+            onStart: viewModel.startTimer
+        )
+    }
+
+    var timerView: some View {
+        TimerView(
+            breathPhase: viewModel.breathPhase,
+            secondsRemaining: viewModel.secondsRemaining,
+            isRunning: viewModel.isRunning,
+            onPauseResume: viewModel.pauseResumeTimer,
+            onReset: viewModel.resetTimer
+        )
         .onReceive(timer) { _ in
-            guard isRunning else { return }
-
-            if secondsRemaining > 0 {
-                secondsRemaining -= 1
-            } else {
-                isRunning = false
-                WKInterfaceDevice.current().play(.success)
-            }
+            viewModel.tick()
         }
-    }
-
-    func resetTimer() {
-        secondsRemaining = selectedMinutes * 60
-        isRunning = false
-    }
-
-    func formatTime(_ seconds: Int) -> String {
-        let minutes = seconds / 60
-        let seconds = seconds % 60
-
-        return String(format: "%02d:%02d", minutes, seconds)
     }
 }
 
