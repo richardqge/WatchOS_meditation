@@ -45,3 +45,33 @@ struct TimerView: View {
         return String(format: "%02d:%02d", minutes, seconds)
     }
 }
+
+#Preview("Inhale") {
+    TimerView(
+        breathPhase: .inhale,
+        secondsRemaining: 299,
+        isRunning: true,
+        onPauseResume: {},
+        onReset: {}
+    )
+}
+
+#Preview("Hold") {
+    TimerView(
+        breathPhase: .hold,
+        secondsRemaining: 296,
+        isRunning: true,
+        onPauseResume: {},
+        onReset: {}
+    )
+}
+
+#Preview("Paused") {
+    TimerView(
+        breathPhase: .exhale,
+        secondsRemaining: 240,
+        isRunning: false,
+        onPauseResume: {},
+        onReset: {}
+    )
+}

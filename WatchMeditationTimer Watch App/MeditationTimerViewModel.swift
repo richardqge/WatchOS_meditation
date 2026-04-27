@@ -6,18 +6,45 @@
 //
 
 import Observation
-import WatchKit
+
+struct BreathingStep {
+    let phase: BreathPhase
+    let duration: Int
+}
 
 @Observable
 class MeditationTimerViewModel {
-    var selectedMinutes = 5
-    var secondsRemaining = 5 * 60
-    var elapsedSeconds = 0
-    var isRunning = false
-    var hasStarted = false
-    var breathPhase: BreathPhase = .ready
+    private let haptics: HapticsProviding
+    
+
+    
+    private(set) var selectedMinutes = 5
+    private(set) var secondsRemaining = 5 * 60
+    private(set) var elapsedSeconds = 0
+    private(set) var isRunning = false
+    private(set) var hasStarted = false
+    private(set) var breathPhase: BreathPhase = .ready
 
     let durations = [1, 3, 5, 10]
+    
+    // cycle as data
+    private let breathingPattern: [BreathingStep] = [
+        BreathingStep(phase: .inhale, duration: 4),
+        BreathingStep(phase: .hold, duration: 3),
+        BreathingStep(phase: .exhale, duration: 5)
+    ]
+    
+    // cycle length
+    private var breathingCycleLength: Int {
+        breathingPattern.reduce(0) {total, step in
+            total + step.duration
+        }
+    }
+    
+
+    init(haptics: HapticsProviding = Haptics()) {
+        self.haptics = haptics
+    }
 
     func startTimer() {
         secondsRemaining = selectedMinutes * 60
@@ -25,7 +52,7 @@ class MeditationTimerViewModel {
         isRunning = true
         hasStarted = true
         breathPhase = .inhale
-        WKInterfaceDevice.current().play(.start)
+        haptics.start()
     }
 
     func resetTimer() {
@@ -38,10 +65,12 @@ class MeditationTimerViewModel {
 
     func pauseResumeTimer() {
         isRunning.toggle()
-        WKInterfaceDevice.current().play(.click)
+        haptics.click()
     }
 
     func selectMinutes(_ minutes: Int) {
+        guard durations.contains(minutes) else { return }
+        
         selectedMinutes = minutes
         secondsRemaining = minutes * 60
     }
@@ -56,19 +85,21 @@ class MeditationTimerViewModel {
         } else {
             isRunning = false
             breathPhase = .done
-            WKInterfaceDevice.current().play(.success)
+            haptics.success()
         }
     }
 
     private func updateBreathPhase() {
-        let cycleSecond = elapsedSeconds % 12
+        let cycleSecond = elapsedSeconds % breathingCycleLength
+        var elapsedInCycle = 0
 
-        if cycleSecond < 4 {
-            breathPhase = .inhale
-        } else if cycleSecond < 7 {
-            breathPhase = .hold
-        } else {
-            breathPhase = .exhale
+        for step in breathingPattern {
+            elapsedInCycle += step.duration
+
+            if cycleSecond < elapsedInCycle {
+                breathPhase = step.phase
+                return
+            }
         }
     }
 }

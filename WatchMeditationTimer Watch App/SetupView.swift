@@ -33,3 +33,12 @@ struct SetupView: View {
         }
     }
 }
+
+#Preview {
+    SetupView(
+        durations: [1, 3, 5, 10],
+        selectedMinutes: 5,
+        onSelectMinutes: { _ in },
+        onStart: {}
+    )
+}

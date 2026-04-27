@@ -37,6 +37,7 @@
 /* Begin PBXFileReference section */
 		C18818F22F9EDD7B00BB3F4D /* WatchMeditationTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchMeditationTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C18818F82F9EDD7B00BB3F4D /* WatchMeditationTimer Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchMeditationTimer Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C188191F2F9F003B00BB3F4D /* WatchMeditationTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatchMeditationTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -45,10 +46,22 @@
 			path = "WatchMeditationTimer Watch App";
 			sourceTree = "<group>";
 		};
+		C18819202F9F003B00BB3F4D /* WatchMeditationTimerTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WatchMeditationTimerTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		C18818F52F9EDD7B00BB3F4D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C188191C2F9F003B00BB3F4D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -62,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				C18818FC2F9EDD7B00BB3F4D /* WatchMeditationTimer Watch App */,
+				C18819202F9F003B00BB3F4D /* WatchMeditationTimerTests */,
 				C18818F32F9EDD7B00BB3F4D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,6 +85,7 @@
 			children = (
 				C18818F22F9EDD7B00BB3F4D /* WatchMeditationTimer.app */,
 				C18818F82F9EDD7B00BB3F4D /* WatchMeditationTimer Watch App.app */,
+				C188191F2F9F003B00BB3F4D /* WatchMeditationTimerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,6 +134,28 @@
 			productReference = C18818F82F9EDD7B00BB3F4D /* WatchMeditationTimer Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C188191E2F9F003B00BB3F4D /* WatchMeditationTimerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C18819232F9F003B00BB3F4D /* Build configuration list for PBXNativeTarget "WatchMeditationTimerTests" */;
+			buildPhases = (
+				C188191B2F9F003B00BB3F4D /* Sources */,
+				C188191C2F9F003B00BB3F4D /* Frameworks */,
+				C188191D2F9F003B00BB3F4D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C18819202F9F003B00BB3F4D /* WatchMeditationTimerTests */,
+			);
+			name = WatchMeditationTimerTests;
+			packageProductDependencies = (
+			);
+			productName = WatchMeditationTimerTests;
+			productReference = C188191F2F9F003B00BB3F4D /* WatchMeditationTimerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -133,6 +170,9 @@
 						CreatedOnToolsVersion = 26.3;
 					};
 					C18818F72F9EDD7B00BB3F4D = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					C188191E2F9F003B00BB3F4D = {
 						CreatedOnToolsVersion = 26.3;
 					};
 				};
@@ -153,6 +193,7 @@
 			targets = (
 				C18818F12F9EDD7B00BB3F4D /* WatchMeditationTimer */,
 				C18818F72F9EDD7B00BB3F4D /* WatchMeditationTimer Watch App */,
+				C188191E2F9F003B00BB3F4D /* WatchMeditationTimerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -172,10 +213,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C188191D2F9F003B00BB3F4D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C18818F42F9EDD7B00BB3F4D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C188191B2F9F003B00BB3F4D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -382,6 +437,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.richardge.WatchMeditationTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -398,9 +454,53 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.richardge.WatchMeditationTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C18819242F9F003B00BB3F4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.richardge.WatchMeditationTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C18819252F9F003B00BB3F4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.richardge.WatchMeditationTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -431,6 +531,15 @@
 			buildConfigurations = (
 				C188190A2F9EDD7D00BB3F4D /* Debug */,
 				C188190B2F9EDD7D00BB3F4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C18819232F9F003B00BB3F4D /* Build configuration list for PBXNativeTarget "WatchMeditationTimerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C18819242F9F003B00BB3F4D /* Debug */,
+				C18819252F9F003B00BB3F4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

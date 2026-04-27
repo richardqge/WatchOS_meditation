@@ -8,10 +8,12 @@
 import SwiftUI
 
 @main
-struct WatchMeditationTimer_Watch_AppApp: App {
+struct WatchMeditationTimerApp: App {
+    @State private var viewModel = MeditationTimerViewModel()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: viewModel)
         }
     }
 }

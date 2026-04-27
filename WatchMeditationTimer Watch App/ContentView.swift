@@ -2,8 +2,8 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
-    @State private var viewModel = MeditationTimerViewModel()
-
+    let viewModel: MeditationTimerViewModel
+    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
@@ -38,5 +38,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(viewModel: MeditationTimerViewModel(haptics: SilentHaptics()))
 }
