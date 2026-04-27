@@ -7,6 +7,7 @@
 
 import WatchKit
 
+@MainActor
 protocol HapticsProviding {
     func start()
     func click()
@@ -14,6 +15,8 @@ protocol HapticsProviding {
 }
 
 struct Haptics: HapticsProviding {
+    nonisolated init() {}
+
     func start() {
         WKInterfaceDevice.current().play(.start)
     }

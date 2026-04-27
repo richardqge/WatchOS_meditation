@@ -12,11 +12,19 @@ struct BreathingStep {
     let duration: Int
 }
 
+@MainActor
 @Observable
 class MeditationTimerViewModel {
     private let haptics: HapticsProviding
     
+    init() {
+        self.haptics = Haptics()
+    }
 
+    init(haptics: HapticsProviding) {
+        self.haptics = haptics
+    }
+    
     
     private(set) var selectedMinutes = 5
     private(set) var secondsRemaining = 5 * 60
@@ -24,6 +32,10 @@ class MeditationTimerViewModel {
     private(set) var isRunning = false
     private(set) var hasStarted = false
     private(set) var breathPhase: BreathPhase = .ready
+    
+    // async
+    private(set) var recommendedMinutes: Int?
+    private(set) var isLoadingRecommendation = false
 
     let durations = [1, 3, 5, 10]
     
@@ -39,11 +51,6 @@ class MeditationTimerViewModel {
         breathingPattern.reduce(0) {total, step in
             total + step.duration
         }
-    }
-    
-
-    init(haptics: HapticsProviding = Haptics()) {
-        self.haptics = haptics
     }
 
     func startTimer() {
@@ -78,15 +85,32 @@ class MeditationTimerViewModel {
     func tick() {
         guard isRunning else { return }
 
-        if secondsRemaining > 0 {
-            secondsRemaining -= 1
-            elapsedSeconds += 1
-            updateBreathPhase()
-        } else {
+        guard secondsRemaining > 0 else {
             isRunning = false
             breathPhase = .done
             haptics.success()
+            return
         }
+
+        secondsRemaining -= 1
+        elapsedSeconds += 1
+
+        if secondsRemaining == 0 {
+            isRunning = false
+            breathPhase = .done
+            haptics.success()
+        } else {
+            updateBreathPhase()
+        }
+    }
+    
+    func loadRecommendation() async{
+        isLoadingRecommendation = true
+        
+        try? await Task.sleep(for: .seconds(1))
+        
+        recommendedMinutes = 3
+        isLoadingRecommendation = false
     }
 
     private func updateBreathPhase() {

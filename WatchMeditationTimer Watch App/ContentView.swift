@@ -19,7 +19,14 @@ struct ContentView: View {
             durations: viewModel.durations,
             selectedMinutes: viewModel.selectedMinutes,
             onSelectMinutes: viewModel.selectMinutes,
-            onStart: viewModel.startTimer
+            onStart: viewModel.startTimer,
+            recommendedMinutes: viewModel.recommendedMinutes,
+            isLoadingRecommendation: viewModel.isLoadingRecommendation,
+            onLoadRecommendation: {
+                Task {
+                    await viewModel.loadRecommendation()
+                }
+            }
         )
     }
 

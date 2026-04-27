@@ -12,6 +12,11 @@ struct SetupView: View {
     let selectedMinutes: Int
     let onSelectMinutes: (Int) -> Void
     let onStart: () -> Void
+    
+    //async
+    let recommendedMinutes: Int?
+    let isLoadingRecommendation: Bool
+    let onLoadRecommendation: () -> Void
 
     var body: some View {
         VStack {
@@ -26,6 +31,18 @@ struct SetupView: View {
             }
 
             Text("Selected: \(selectedMinutes)")
+            
+            if isLoadingRecommendation {
+                Text("Loading...")
+            } else if let recommendedMinutes {
+                Button("Use \(recommendedMinutes) min") {
+                    onSelectMinutes(recommendedMinutes)
+                }
+            } else {
+                Button("Recommend") {
+                    onLoadRecommendation()
+                }
+            }
 
             Button("Start") {
                 onStart()
@@ -39,6 +56,9 @@ struct SetupView: View {
         durations: [1, 3, 5, 10],
         selectedMinutes: 5,
         onSelectMinutes: { _ in },
-        onStart: {}
+        onStart: {},
+        recommendedMinutes: nil,
+        isLoadingRecommendation: false,
+        onLoadRecommendation: {}
     )
 }
