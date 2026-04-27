@@ -1,13 +1,27 @@
 import SwiftUI
 import Combine
 
+
 struct ContentView: View {
+    @Environment(\.scenePhase) private var scenePhase
+
+    
     let viewModel: MeditationTimerViewModel
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        if viewModel.hasStarted {
+        mainContent
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                if newPhase != .active {
+                    viewModel.pauseForAppLifecycle()
+                }
+            }
+    }
+    
+    @ViewBuilder
+    var mainContent: some View {
+        if viewModel.hasStarted{
             timerView
         } else {
             setupView

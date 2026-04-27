@@ -35,3 +35,4 @@ struct SilentHaptics: HapticsProviding {
     func click() {}
     func success() {}
 }
+

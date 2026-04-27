@@ -17,6 +17,27 @@ struct SetupView: View {
     let recommendedMinutes: Int?
     let isLoadingRecommendation: Bool
     let onLoadRecommendation: () -> Void
+    
+    private var selectedDurationIndex: Binding<Double> {
+        Binding(
+            get: {
+                guard let index = durations.firstIndex(of: selectedMinutes) else {
+                    return 0
+                }
+
+                return Double(index)
+            },
+            set: { newValue in
+                guard !durations.isEmpty else { return }
+
+                let index = Int(newValue.rounded())
+                let clampedIndex = min(max(index, 0), durations.count - 1)
+                let minutes = durations[clampedIndex]
+
+                onSelectMinutes(minutes)
+            }
+        )
+    }
 
     var body: some View {
         VStack {
@@ -48,7 +69,18 @@ struct SetupView: View {
                 onStart()
             }
         }
+        .focusable(true)
+        .digitalCrownRotation(
+            selectedDurationIndex,
+            from: 0,
+            through: Double(durations.count - 1),
+            by: 1,
+            sensitivity: .medium,
+            isContinuous: false,
+            isHapticFeedbackEnabled: true
+        )
     }
+
 }
 
 #Preview {

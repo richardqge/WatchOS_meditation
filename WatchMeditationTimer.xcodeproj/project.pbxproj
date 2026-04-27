@@ -18,6 +18,13 @@
 			remoteGlobalIDString = C18818F72F9EDD7B00BB3F4D;
 			remoteInfo = "WatchMeditationTimer Watch App";
 		};
+		C18819462F9F1B9F00BB3F4D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C18818EC2F9EDD7B00BB3F4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C18818F72F9EDD7B00BB3F4D;
+			remoteInfo = "WatchMeditationTimer Watch App";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -145,6 +152,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C18819472F9F1B9F00BB3F4D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				C18819202F9F003B00BB3F4D /* WatchMeditationTimerTests */,
@@ -174,6 +182,7 @@
 					};
 					C188191E2F9F003B00BB3F4D = {
 						CreatedOnToolsVersion = 26.3;
+						TestTargetID = C18818F72F9EDD7B00BB3F4D;
 					};
 				};
 			};
@@ -244,6 +253,11 @@
 			isa = PBXTargetDependency;
 			target = C18818F72F9EDD7B00BB3F4D /* WatchMeditationTimer Watch App */;
 			targetProxy = C18818FA2F9EDD7B00BB3F4D /* PBXContainerItemProxy */;
+		};
+		C18819472F9F1B9F00BB3F4D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C18818F72F9EDD7B00BB3F4D /* WatchMeditationTimer Watch App */;
+			targetProxy = C18819462F9F1B9F00BB3F4D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -467,6 +481,7 @@
 		C18819242F9F003B00BB3F4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"BUNDLE_LOADER[sdk=watch*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -482,12 +497,14 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WatchMeditationTimer Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WatchMeditationTimer Watch App";
 			};
 			name = Debug;
 		};
 		C18819252F9F003B00BB3F4D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"BUNDLE_LOADER[sdk=watch*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -503,6 +520,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WatchMeditationTimer Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WatchMeditationTimer Watch App";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

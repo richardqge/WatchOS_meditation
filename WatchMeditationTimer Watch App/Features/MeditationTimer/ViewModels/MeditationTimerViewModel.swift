@@ -124,6 +124,12 @@ class MeditationTimerViewModel {
         recommendedMinutes = 3
         isLoadingRecommendation = false
     }
+    
+    func pauseForAppLifecycle() {
+        guard isRunning else { return }
+
+        isRunning = false
+    }
 
     private func updateBreathPhase() {
         let cycleSecond = elapsedSeconds % breathingCycleLength
